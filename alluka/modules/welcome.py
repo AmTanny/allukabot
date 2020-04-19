@@ -901,10 +901,10 @@ def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 def __chat_settings__(chat_id, user_id):
-    welcome_pref2, _, _ = sql.get_welc_pref(chat_id)
+    welcome_pref, _, _ = sql.get_welc_pref(chat_id)
     goodbye_pref, _, _ = sql.get_gdbye_pref(chat_id)
     return "This chat has it's welcome preference set to `{}`.\n" \
-           "It's goodbye preference is `{}`.".format(welcome_pref2, goodbye_pref)
+           "It's goodbye preference is `{}`.".format(welcome_pref, goodbye_pref)
 
 __help__ = """
 {}
