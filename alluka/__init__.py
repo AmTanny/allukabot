@@ -91,6 +91,7 @@ if ENV:
     WALL_API = os.environ.get('WALL_API',None)
     LASTFM_API_KEY = os.environ.get('LASTFM_API_KEY',None)
     LYDIA_API = os.environ.get('LYDIA_API',None)
+    DEEPFRY_TOKEN = os.environ.get('DEEPFRY_TOKEN',None)
 
 else:
     from alluka.config import Development as Config
@@ -146,6 +147,7 @@ else:
     WALL_API = Config.WALL_API
     LASTFM_API_KEY = Config.LASTFM_API_KEY
     LYDIA_API = Config.LYDIA_API
+    DEEPFRY_TOKEN = Config.DEEPFRY_TOKEN  
 
     #ZOLDYCK_FAMMILY
     ALLUKA = Config.ALLUKA
