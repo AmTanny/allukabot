@@ -67,7 +67,7 @@
           "required": false,
          "value": "-xyz"
       },
-        " DEEPFRY_TOKEN ": {
+        "DEEPFRY_TOKEN": {
          "description": "Required for memes plugin",
           "required": false,
          "value": "-xyz"
