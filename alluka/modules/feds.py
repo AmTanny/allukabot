@@ -1134,6 +1134,7 @@ That's where federations come in! You can have a fedban in one chat ban the user
  - /fbanlist: gives the list of currently fedbanned users.
  - /fedchats: get all the chats linked to the federation.
  - /importfbans: Reply to the federation backup message file to import the banned list to the federation.
+
 """
 
 NEW_FED_HANDLER = CommandHandler("newfed", new_fed)
