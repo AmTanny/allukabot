@@ -64,6 +64,12 @@
       },
        "LASTFM_API_KEY": {
          "description": "Required for lastfm plugin",
+          "required": false,
+         "value": "-xyz"
+      },
+        " DEEPFRY_TOKEN ": {
+         "description": "Required for memes plugin",
+          "required": false,
          "value": "-xyz"
       },
       
