@@ -5,7 +5,7 @@ from typing import Optional, List
 import requests
 import subprocess
 import os
-
+import speedtest
 import time
 from telegram import Message, Chat, Update, Bot, MessageEntity
 from telegram import ParseMode
@@ -37,7 +37,7 @@ def get_bot_ip(bot: Bot, update: Update):
     res = requests.get("http://ipinfo.io/ip")
     update.message.reply_text(res.text)
 
-""""@run_async
+@run_async
 def rtt(bot: Bot, update: Update):
     out = ""
     under = False
@@ -64,9 +64,9 @@ def rtt(bot: Bot, update: Update):
         newstr=newstra[1].split(' ') #redundant split, but to try and not break windows ping
     ping_time = float(newstr[0])
     if os.name == 'nt' and under:
-        update.effective_message.reply_text(" 🇵 🇴 🇳 🇬 👉🏻 <{}ms".format(ping_time))
+        update.effective_message.reply_text(" Pong!! <{}ms 🏓".format(ping_time))
     else:
-        update.effective_message.reply_text(" 🇵 🇴 🇳 🇬 👉🏻 {}ms".format(ping_time)) """
+        update.effective_message.reply_text(" Pong!! {}ms 🏓".format(ping_time))
 
 def ping(bot: Bot, update: Update):
     message = update.effective_message
@@ -117,12 +117,29 @@ def ping(bot: Bot, update: Update):
     
     
 
+@run_async
+def speedtst(bot: Bot, update: Update):
+    test = speedtest.Speedtest()
+    test.get_best_server()
+    test.download()
+    test.upload()
+    test.results.share()
+    result = test.results.dict()
+    update.effective_message.reply_text("Download "
+                   f"{speed_convert(result['download'])} \n"
+                   "Upload "
+                   f"{speed_convert(result['upload'])} \n"
+                   "Ping "
+                   f"{result['ping']} \n"
+                   "ISP "
+                   f"{result['client']['isp']}")
 
 IP_HANDLER = CommandHandler("ip", get_bot_ip, filters=Filters.chat(OWNER_ID))
-#RTT_HANDLER = CommandHandler("ping", rtt, filters=CustomFilters.sudo_filter)
+RTT_HANDLER = CommandHandler("ping", rtt, filters=CustomFilters.sudo_filter)
 PING_HANDLER = CommandHandler("cping", ping, filters=CustomFilters.sudo_filter)
-
+SPEED_HANDLER = CommandHandler("speedtest", speedtst, filters=CustomFilters.sudo_filter) 
 
 dispatcher.add_handler(IP_HANDLER)
-#dispatcher.add_handler(RTT_HANDLER)
+dispatcher.add_handler(RTT_HANDLER)
+dispatcher.add_handler(SPEED_HANDLER)
 dispatcher.add_handler(PING_HANDLER)
