@@ -2,7 +2,10 @@ import importlib
 import re
 import datetime
 from typing import Optional, List
-
+import resource
+import platform
+import sys
+import traceback
 from telegram import Message, Chat, Update, Bot, User
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 from telegram.error import Unauthorized, BadRequest, TimedOut, NetworkError, ChatMigrated, TelegramError
@@ -33,7 +36,7 @@ the things I can help you with.
  - /start: start the bot
  - /help: PM's you this message.
  - /help <module name>: PM's you info about that module.
- - /donate: information about how to donate!
+ - /source: Information about my source.
  - /settings:
   - in PM: will send you your settings for all supported modules.
   - in a group: will redirect you to pm, with all that chat's settings.
@@ -42,11 +45,16 @@ the things I can help you with.
 And the following:
 """.format(dispatcher.bot.first_name, "" if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
-It took lots of work for my creator to get me to where I am now, and every donation helps \
-motivate him to make me even better. All the donation money will go to a better VPS to host me, and/or beer \
-(see his bio!). He's just a poor student, so every little helps!
-There are two ways of paying him; [PayPal](paypal.me/anilchauhanxda)"""
+
+
+VERSION = "5.5.2"
+
+def vercheck() -> str:
+    return str(VERSION)
+
+SOURCE_STRING = """
+I'm built in python3, using the python-telegram-bot library, and am fully opensource - you can find what makes me tick [here](https://github.com/anilchauhanxda/allukabot)
+"""
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -388,26 +396,6 @@ def get_settings(bot: Bot, update: Update):
         send_settings(chat.id, user.id, True)
 
 
-@run_async
-def donate(bot: Bot, update: Update):
-    user = update.effective_message.from_user
-    chat = update.effective_chat  # type: Optional[Chat]
-
-    if chat.type == "private":
-        update.effective_message.reply_text(DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
-
-        if OWNER_ID !=  802002142 and DONATION_LINK:
-            update.effective_message.reply_text("You can also donate to the person currently running me "
-                                                "[here]({})".format(DONATION_LINK),
-                                                parse_mode=ParseMode.MARKDOWN)
-
-    else:
-        try:
-            bot.send_message(user.id, DONATE_STRING, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
-
-            update.effective_message.reply_text("I've PM'ed you about donating to my creator!")
-        except Unauthorized:
-            update.effective_message.reply_text("Contact me in PM first to get donation information.")
 
 
 def migrate_chats(bot: Bot, update: Update):
@@ -429,6 +417,55 @@ def migrate_chats(bot: Bot, update: Update):
     raise DispatcherHandlerStop
 
 
+@run_async
+def source(bot: Bot, update: Update):
+    user = update.effective_message.from_user
+    chat = update.effective_chat  # type: Optional[Chat]
+
+    if chat.type == "private":
+        update.effective_message.reply_text(SOURCE_STRING, parse_mode=ParseMode.MARKDOWN)
+
+    else:
+        try:
+            bot.send_message(user.id, SOURCE_STRING, parse_mode=ParseMode.MARKDOWN)
+
+            update.effective_message.reply_text("You'll find in PM more info about my sourcecode.")
+        except Unauthorized:
+            update.effective_message.reply_text("Contact me in PM first to get source information.")
+
+# Avoid memory dead
+def memory_limit(percentage: float):
+    if platform.system() != "Linux":
+        print('Only works on linux!')
+        return
+    soft, hard = resource.getrlimit(resource.RLIMIT_AS)
+    resource.setrlimit(resource.RLIMIT_AS, (int(get_memory() * 1024 * percentage), hard))
+
+def get_memory():
+    with open('/proc/meminfo', 'r') as mem:
+        free_memory = 0
+        for i in mem:
+            sline = i.split()
+            if str(sline[0]) in ('MemFree:', 'Buffers:', 'Cached:'):
+                free_memory += int(sline[1])
+    return free_memory
+
+def memory(percentage=0.5):
+    def decorator(function):
+        def wrapper(*args, **kwargs):
+            memory_limit(percentage)
+            try:
+                function(*args, **kwargs)
+            except MemoryError:
+                mem = get_memory() / 1024 /1024
+                print('Remain: %.2f GB' % mem)
+                sys.stderr.write('\n\nERROR: Memory Exception\n')
+                sys.exit(1)
+        return wrapper
+    return decorator
+
+
+@memory(percentage=0.8)
 def main():
     test_handler = CommandHandler("test", test)
     start_handler = CommandHandler("start", start, pass_args=True)
@@ -442,11 +479,9 @@ def main():
 
     settings_handler = CommandHandler("settings", get_settings)
     settings_callback_handler = CallbackQueryHandler(settings_button, pattern=r"stngs_")
-
-
-
-
-    donate_handler = CommandHandler("donate", donate)
+   
+    source_handler = CommandHandler("source", source)
+    
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
 
     # dispatcher.add_handler(test_handler)
@@ -456,7 +491,8 @@ def main():
     dispatcher.add_handler(help_callback_handler)
     dispatcher.add_handler(settings_callback_handler)
     dispatcher.add_handler(migrate_handler)
-    dispatcher.add_handler(donate_handler)
+    dispatcher.add_handler(source_handler)
+    
 
     # dispatcher.add_error_handler(error_callback)
 
