@@ -46,6 +46,7 @@ class Config(object):
     WALL_API = None
     LASTFM_API_KEY = None
     LYDIA_API = None
+    DEEPFRY_TOKEN = None
 
 
     #ZOLDYCK_FAMILY
