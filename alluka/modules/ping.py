@@ -14,8 +14,8 @@ from telegram.ext import CommandHandler, run_async, Filters
 from telegram import Update, Bot
 from telegram.ext import run_async
 
-from stella.modules.disable import DisableAbleCommandHandler
-from stella import dispatcher
+from alluka.modules.disable import DisableAbleCommandHandler
+from alluka import dispatcher
 
 from requests import get
 
