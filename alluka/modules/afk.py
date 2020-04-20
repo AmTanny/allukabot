@@ -1,11 +1,9 @@
 import random
 from typing import Optional
-
 from telegram import Message, Update, Bot, User
 from telegram import MessageEntity, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import Filters, MessageHandler, run_async
-
 from alluka import dispatcher
 from alluka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
 from alluka.modules.sql import afk_sql as sql
