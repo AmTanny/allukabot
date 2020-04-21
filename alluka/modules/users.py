@@ -88,7 +88,7 @@ def log_user(bot: Bot, update: Update):
         sql.update_user(msg.forward_from.id,
                         msg.forward_from.username)
 
-
+@dev_plus
 @run_async
 def chats(bot: Bot, update: Update):
     all_chats = sql.get_all_chats() or []
