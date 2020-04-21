@@ -121,7 +121,7 @@ def addsupport(bot: Bot, update: Update, args: List[str]) -> str:
     with open(ALLUKA_USERS_FILE, 'w') as outfile:
         json.dump(data, outfile, indent=4)
 
-    update.effective_message.reply_text(rt + f"\n{user_member.first_name} was added as a Demon Disaster!")
+    update.effective_message.reply_text(rt + f"\n{user_member.first_name} was added as a support user!")
 
     log_message = (f"#SUPPORT\n"
                    f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
@@ -174,7 +174,7 @@ def addwhitelist(bot: Bot, update: Update, args: List[str]) -> str:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
-        rt + f"\nSuccessfully promoted {user_member.first_name} to a whhitelist user!")
+        rt + f"\nSuccessfully promoted {user_member.first_name} to a whitelist user!")
 
     log_message = (f"#WHITELIST\n"
                    f"<b>Admin:</b> {mention_html(user.id, user.first_name)} \n"
