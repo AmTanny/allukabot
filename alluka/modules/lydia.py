@@ -94,7 +94,7 @@ Commands: These only work on @allukatm.
  - /elydia : Enables lydia mode in the chat.
  - /dlydia  : Disables lydia mode in the chat.
  
- Lydia module by @TheRealPhoenix
+ 
 """
                   
 ADD_CHAT_HANDLER = CommandHandler("elydia", add_chat, filters=CustomFilters.dev_filter)
