@@ -5,12 +5,15 @@ import os
 import json
 import sys
 import requests
+
 from typing import List
 from time import sleep
+
 from telegram import Bot, Update, ParseMode
 from telegram.error import BadRequest
 from telegram.ext import CommandHandler, Filters, run_async
 from telegram.utils.helpers import escape_markdown, mention_html
+
 from alluka import dispatcher, WHITELIST_USERS, SUPPORT_USERS, SUDO_USERS, DEV_USERS, OWNER_ID, TOKEN
 from alluka.__main__ import IMPORTED, HELPABLE, MIGRATEABLE, STATS, USER_INFO, DATA_IMPORT, DATA_EXPORT, CHAT_SETTINGS, USER_SETTINGS 
 from alluka.modules.disable import DisableAbleCommandHandler
@@ -472,7 +475,7 @@ def adminlist(bot: Bot, update: Update):
 
     for admin in administrators:
         user = admin.user
-        name = "[{}](tg://user?id={})".format(user.first_name + (user.last_name or ""), user.id)
+        name = "`{}`".format(user.first_name + (user.last_name or ""))
         text += "\n - {}".format(name)
 
     update.effective_message.reply_text(text, parse_mode=ParseMode.MARKDOWN)
