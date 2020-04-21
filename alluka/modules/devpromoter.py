@@ -65,7 +65,7 @@ def addsudo(bot: Bot, update: Update, args: List[str]) -> str:
     data['sudos'].append(user_id)
     SUDO_USERS.append(user_id)
 
-    with open(ELEVATED_USERS_FILE, 'w') as outfile:
+    with open(ALLUKA_USERS_FILE, 'w') as outfile:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
@@ -98,7 +98,7 @@ def addsupport(bot: Bot, update: Update, args: List[str]) -> str:
         message.reply_text(reply)
         return ""
 
-    with open(ELEVATED_USERS_FILE, 'r') as infile:
+    with open(ALLUKA_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
     if user_id in SUDO_USERS:
@@ -118,7 +118,7 @@ def addsupport(bot: Bot, update: Update, args: List[str]) -> str:
     data['supports'].append(user_id)
     SUPPORT_USERS.append(user_id)
 
-    with open(ELEVATED_USERS_FILE, 'w') as outfile:
+    with open(ALLUKA_USERS_FILE, 'w') as outfile:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(rt + f"\n{user_member.first_name} was added as a Demon Disaster!")
@@ -150,7 +150,7 @@ def addwhitelist(bot: Bot, update: Update, args: List[str]) -> str:
         message.reply_text(reply)
         return ""
 
-    with open(ELEVATED_USERS_FILE, 'r') as infile:
+    with open(ALLUKA_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
     if user_id in SUDO_USERS:
@@ -170,7 +170,7 @@ def addwhitelist(bot: Bot, update: Update, args: List[str]) -> str:
     data['whitelists'].append(user_id)
     WHITELIST_USERS.append(user_id)
 
-    with open(ELEVATED_USERS_FILE, 'w') as outfile:
+    with open(ALLUKA_USERS_FILE, 'w') as outfile:
         json.dump(data, outfile, indent=4)
 
     update.effective_message.reply_text(
@@ -202,7 +202,7 @@ def removesudo(bot: Bot, update: Update, args: List[str]) -> str:
         message.reply_text(reply)
         return ""
 
-    with open(ELEVATED_USERS_FILE, 'r') as infile:
+    with open(ALLUKA_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
     if user_id in SUDO_USERS:
@@ -243,7 +243,7 @@ def removesupport(bot: Bot, update: Update, args: List[str]) -> str:
         message.reply_text(reply)
         return ""
 
-    with open(ELEVATED_USERS_FILE, 'r') as infile:
+    with open(ALLUKA_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
     if user_id in SUPPORT_USERS:
@@ -251,7 +251,7 @@ def removesupport(bot: Bot, update: Update, args: List[str]) -> str:
         SUPPORT_USERS.remove(user_id)
         data['supports'].remove(user_id)
 
-        with open(ELEVATED_USERS_FILE, 'w') as outfile:
+        with open(ALLUKA_USERS_FILE, 'w') as outfile:
             json.dump(data, outfile, indent=4)
 
         log_message = (f"#UNSUPPORT\n"
@@ -284,7 +284,7 @@ def removewhitelist(bot: Bot, update: Update, args: List[str]) -> str:
         message.reply_text(reply)
         return ""
 
-    with open(ELEVATED_USERS_FILE, 'r') as infile:
+    with open(ALLUKA_USERS_FILE, 'r') as infile:
         data = json.load(infile)
 
     if user_id in WHITELIST_USERS:
@@ -292,7 +292,7 @@ def removewhitelist(bot: Bot, update: Update, args: List[str]) -> str:
         WHITELIST_USERS.remove(user_id)
         data['whitelists'].remove(user_id)
 
-        with open(ELEVATED_USERS_FILE, 'w') as outfile:
+        with open(ALLUKA_USERS_FILE, 'w') as outfile:
             json.dump(data, outfile, indent=4)
 
         log_message = (f"#UNWHITELIST\n"
@@ -398,7 +398,7 @@ dispatcher.add_handler(SUPPORTLIST_HANDLER)
 dispatcher.add_handler(SUDOLIST_HANDLER)
 dispatcher.add_handler(DEVLIST_HANDLER)
 
-__mod_name__ = "Dev.Promoter"
+__mod_name__ = "DevPromoter"
 __handlers__ = [SUDO_HANDLER, SUPPORT_HANDLER, WHITELIST_HANDLER,
                 UNSUDO_HANDLER, UNSUPPORT_HANDLER, UNWHITELIST_HANDLER,
                 WHITELISTLIST_HANDLER, SUPPORTLIST_HANDLER, SUDOLIST_HANDLER, DEVLIST_HANDLER]
