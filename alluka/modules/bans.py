@@ -1,6 +1,6 @@
 import html
 from typing import Optional, List
-
+from telegram import Bot, Chat, Update, ParseMode
 from telegram import Message, Chat, Update, Bot, User
 from telegram.error import BadRequest
 from telegram.ext import run_async, CommandHandler, Filters
@@ -23,6 +23,7 @@ from alluka.modules.log_channel import loggable
 def ban(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
     user = update.effective_user  # type: Optional[User]
+    chat_name = chat.title or chat.first or chat.username
     message = update.effective_message  # type: Optional[Message]
 
     user_id, reason = extract_user_and_text(message, args)
@@ -60,8 +61,8 @@ def ban(bot: Bot, update: Update, args: List[str]) -> str:
 
     try:
         chat.kick_member(user_id)
-        bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
-        message.reply_text("Banned!")
+        bot.send_sticker(chat.id, BAN_STICKER)  
+        message.reply_text(f"<b>{html.escape(member.user.first_name)}</b> is banned in " + f"{chat_name}",parse_mode=ParseMode.HTML)
         return log
 
     except BadRequest as excp:
@@ -85,6 +86,7 @@ def ban(bot: Bot, update: Update, args: List[str]) -> str:
 @loggable
 def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
     chat = update.effective_chat  # type: Optional[Chat]
+    chat_name = chat.title or chat.first or chat.username
     user = update.effective_user  # type: Optional[User]
     message = update.effective_message  # type: Optional[Message]
 
@@ -143,7 +145,7 @@ def temp_ban(bot: Bot, update: Update, args: List[str]) -> str:
     try:
         chat.kick_member(user_id, until_date=bantime)
         bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
-        message.reply_text("Banned! User will be banned for {}.".format(time_val))
+        message.reply_text(f"<b>{html.escape(member.user.first_name)}</b>"+ f" will be banned for {time_val} in "+ f"{chat_name}",parse_mode=ParseMode.HTML)
         return log
 
     except BadRequest as excp:
@@ -235,6 +237,83 @@ def kickme(bot: Bot, update: Update):
 @can_restrict
 @user_admin
 @loggable
+def sban(bot: Bot, update: Update, args: List[str]) -> str:
+    chat = update.effective_chat  # type: Optional[Chat]
+    user = update.effective_user  # type: Optional[User]
+    message = update.effective_message  # type: Optional[Message]
+    
+    update.effective_message.delete()
+
+    user_id, reason = extract_user_and_text(message, args)
+
+    if not user_id:
+        return ""
+
+    try:
+        member = chat.get_member(user_id)
+    except BadRequest as excp:
+        if excp.message == "User not found":
+            return ""
+        else:
+            raise
+
+    if is_user_ban_protected(chat, user_id, member):
+        return ""
+
+    if user_id == bot.id:
+        return ""
+
+    log = "<b>{}:</b>" \
+          "\n#SILENT BAN" \
+          "\n<b>• Admin:</b> {}" \
+          "\n<b>• User:</b> {}" \
+          "\n<b>• ID:</b> <code>{}</code>".format(html.escape(chat.title), mention_html(user.id, user.first_name), 
+                                                  mention_html(member.user.id, member.user.first_name), user_id)
+    if reason:
+        log += "\n<b>• Reason:</b> {}".format(reason)
+
+    try:
+        chat.kick_member(user_id)
+        return log
+
+    except BadRequest as excp:
+        if excp.message == "Reply message not found":
+            return log
+        else:
+            LOGGER.warning(update)
+            LOGGER.exception("ERROR banning user %s in chat %s (%s) due to %s", user_id, chat.title, chat.id, excp.message)       
+    return ""
+
+@run_async
+@bot_admin
+@can_restrict
+@loggable
+def banme(bot: Bot, update: Update):
+    user_id = update.effective_message.from_user.id
+    chat = update.effective_chat
+    user = update.effective_user
+    if is_user_admin(update.effective_chat, user_id):
+        update.effective_message.reply_text("I wish I could... but you're an admin.")
+        return
+
+    res = update.effective_chat.kick_member(user_id)  
+    if res:
+        update.effective_message.reply_text("No problem, banned.")
+        log = "<b>{}:</b>" \
+              "\n#BANME" \
+              "\n<b>User:</b> {}" \
+              "\n<b>ID:</b> <code>{}</code>".format(html.escape(chat.title),
+                                                    mention_html(user.id, user.first_name), user_id)
+        return log
+    
+    else:
+        update.effective_message.reply_text("Huh? I can't :/")
+
+@run_async
+@bot_admin
+@can_restrict
+@user_admin
+@loggable
 def unban(bot: Bot, update: Update, args: List[str]) -> str:
     message = update.effective_message  # type: Optional[Message]
     user = update.effective_user  # type: Optional[User]
@@ -280,9 +359,11 @@ def unban(bot: Bot, update: Update, args: List[str]) -> str:
 
 __help__ = """
  - /kickme: kicks the user who issued the command
+ - /banme: If you give the command you will be trampled out and locked.
 
 *Admin only:*
  - /ban <userhandle>: bans a user. (via handle, or reply)
+  -/sban <userhandle>: silent ban a user. (via handle, or reply)
  - /tban <userhandle> x(m/h/d): bans a user for x time. (via handle, or reply). m = minutes, h = hours, d = days.
  - /unban <userhandle>: unbans a user. (via handle, or reply)
  - /kick <userhandle>: kicks a user, (via handle, or reply)
@@ -295,9 +376,13 @@ TEMPBAN_HANDLER = CommandHandler(["tban", "tempban"], temp_ban, pass_args=True, 
 KICK_HANDLER = CommandHandler("kick", kick, pass_args=True, filters=Filters.group)
 UNBAN_HANDLER = CommandHandler("unban", unban, pass_args=True, filters=Filters.group)
 KICKME_HANDLER = DisableAbleCommandHandler("kickme", kickme, filters=Filters.group)
+BANME_HANDLER = DisableAbleCommandHandler("banme", banme, filters=Filters.group)
+SBAN_HANDLER = CommandHandler("sban", sban, pass_args=True, filters=Filters.group)
 
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
 dispatcher.add_handler(KICK_HANDLER)
 dispatcher.add_handler(UNBAN_HANDLER)
 dispatcher.add_handler(KICKME_HANDLER)
+dispatcher.add_handler(BANME_HANDLER)
+dispatcher.add_handler(SBAN_HANDLER)
