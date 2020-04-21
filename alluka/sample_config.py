@@ -27,10 +27,10 @@ class Config(object):
 
     # OPTIONAL
     #ID Seperation format [1,2,3,4]
-    SUDO_USERS = get_user_list('elevated_users.json', 'sudos')  # List of id's -  (not usernames) for users which have sudo access to the bot.
-    DEV_USERS = get_user_list('elevated_users.json', 'devs')  # List of id's - (not usernames) for developers who will have the same perms as the owner
-    SUPPORT_USERS = get_user_list('elevated_users.json', 'supports')  # List of id's (not usernames) for users which are allowed to gban, but can also be banned.
-    WHITELIST_USERS = get_user_list('elevated_users.json', 'whitelists')  # List of id's (not usernames) for users which WONT be banned/kicked by the bot.
+    SUDO_USERS = get_user_list('alluka_users.json', 'sudos')  # List of id's -  (not usernames) for users which have sudo access to the bot.
+    DEV_USERS = get_user_list('alluka_users.json', 'devs')  # List of id's - (not usernames) for developers who will have the same perms as the owner
+    SUPPORT_USERS = get_user_list('alluka_users.json', 'supports')  # List of id's (not usernames) for users which are allowed to gban, but can also be banned.
+    WHITELIST_USERS = get_user_list('alluka_users.json', 'whitelists')  # List of id's (not usernames) for users which WONT be banned/kicked by the bot.
     SPAMMERS = None
     DONATION_LINK = None  # EG, paypal
     CERT_PATH = None
