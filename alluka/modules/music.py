@@ -69,11 +69,15 @@ def music(bot: Bot, update: Update, args):
 				count += 1
 				print("\033[1m\033[96m" + "Download count: " + str(count) + "\033[0m")
 			except:
-				bot.send_message(chat_id=chatId, text='Something went wrong with the download..!\nPlease Report there @allukatm')
+				bot.send_message(chat_id=chatId, text="""That api we are using to download music, is down for weeks...
+It will be up soon.""")
 
 
 __help__ = """ Youtube audio Downloader
  - /music <Youtube link> : alluka can download audio file from youtube link.
+ 
+⚠️That api we are using to download music, is down for weeks...
+It will be up soon.
 
 """
 __mod_name__ = "Music" 
