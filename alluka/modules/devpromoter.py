@@ -13,7 +13,7 @@ from alluka.modules.helper_funcs.chat_status import whitelist_plus, dev_plus
 from alluka.modules.helper_funcs.extraction import extract_user
 from alluka.modules.log_channel import gloggable
 
-ELEVATED_USERS_FILE = os.path.join(os.getcwd(), 'alluka/elevated_users.json')
+ELEVATED_USERS_FILE = os.path.join(os.getcwd(), 'alluka/alluka_users.json')
 
 
 def check_user_id(user_id: int, bot: Bot) -> Optional[str]:
