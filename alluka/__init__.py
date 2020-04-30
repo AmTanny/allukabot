@@ -2,7 +2,7 @@ import logging
 import sys
 import yaml
 import spamwatch
-
+from telethon import TelegramClient
 import telegram.ext as tg
 
 #Enable logging
@@ -38,7 +38,8 @@ if not CONFIG['alluka_explain_config'] == "alluka_zoldyck":
     quit(1)
 
 TOKEN = CONFIG['bot_token']
-
+API_KEY = CONFIG['api_key']
+API_HASH = CONFIG['api_hash']
 try:
     OWNER_ID = int(CONFIG['owner_id'])
 
@@ -126,6 +127,7 @@ else:
 updater = tg.Updater(TOKEN, workers=WORKERS)
 
 dispatcher = updater.dispatcher
+tbot = TelegramClient("alluka", API_KEY, API_HASH)
 
 SUDO_USERS = list(SUDO_USERS) + list(DEV_USERS)
 DEV_USERS = list(DEV_USERS)

@@ -21,7 +21,8 @@ The following env variables are supported:
  - `bot_token`: Your bot token, as a string.
  - `owner_id`: An integer of consisting of your owner ID
  - `owner_username`: Your username
-
+ - `api_key`: get it from my.telegram.org 
+ - `api_hash`: get it from my.telegram.org
  - `database_urlL`: Your database URL
  - `message_dump`: optional: a chat where your replied saved messages are stored, to stop people deleting their old 
  - `load`: Space separated list of modules you would like to load

@@ -6,15 +6,15 @@ import resource
 import platform
 import sys
 import traceback
+from sys import argv
 from telegram import Message, Chat, Update, Bot, User
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup, KeyboardButton
 from telegram.error import Unauthorized, BadRequest, TimedOut, NetworkError, ChatMigrated, TelegramError
 from telegram.ext import CommandHandler, Filters, MessageHandler, CallbackQueryHandler
 from telegram.ext.dispatcher import run_async, DispatcherHandlerStop, Dispatcher
 from telegram.utils.helpers import escape_markdown
-
 from alluka import dispatcher, updater, TOKEN, WEBHOOK, SUDO_USERS, OWNER_ID, CERT_PATH, PORT, URL, LOGGER, \
-    ALLOW_EXCL
+    ALLOW_EXCL, TOKEN, tbot
 from alluka.modules import ALL_MODULES
 from alluka.modules.helper_funcs.chat_status import is_user_admin
 from alluka.modules.helper_funcs.misc import paginate_modules
@@ -139,7 +139,6 @@ def send_start(bot, update):
         query.message.delete()
     except:
         pass
-
     chat = update.effective_chat  # type: Optional[Chat]
     text = "Heya there, my name is αℓℓυкα (アルカ゠ゾルディック, Aruka Zorudikku)! "
     text += "\nI'm the second youngest child of Silva and Kikyo Zoldyck. Under unknown circumstances, I was possessed by a mysterious Dark Continent creature, My family named Nanika.."
@@ -511,6 +510,12 @@ def main():
         LOGGER.info("alluka running...")
         updater.start_polling(timeout=15, read_latency=4)
 
+  
+    if len(argv) not in (1, 3, 4):
+        tbot.disconnect()
+    else:
+        tbot.run_until_disconnected()
+
     updater.idle()
 
 
@@ -571,4 +576,6 @@ def process_update(self, update):
 
 if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
+    tbot.start(bot_token=TOKEN)
     main()
+    LOGGER.info("Successfully loaded")

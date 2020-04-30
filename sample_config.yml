@@ -3,6 +3,8 @@ alluka_explain_config: "hunter_____X_____hunter"   #Change me from "alluka_zoldy
 
 bot_token: "token"  
 owner_id: 802002142
+api_key: 123456
+api_hash: ' '
 owner_username: "meanii"
 database_url: "database_url"
 message_dump: "chat_id"
@@ -27,7 +29,7 @@ cash_api: None
 time_api: None  
 wall_api: None
 lydia_api: None
-sw_api: None
+sw_api: ''
 
 # Zoldyck family config
 alluka: [936828744]
