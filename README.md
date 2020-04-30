@@ -23,7 +23,7 @@ The following env variables are supported:
  - `owner_username`: Your username
  - `api_key`: get it from my.telegram.org 
  - `api_hash`: get it from my.telegram.org
- - `database_urlL`: Your database URL
+ - `database_url`: Your database URL
  - `message_dump`: optional: a chat where your replied saved messages are stored, to stop people deleting their old 
  - `load`: Space separated list of modules you would like to load
  - `no_load`: Space separated list of modules you would like NOT to load
