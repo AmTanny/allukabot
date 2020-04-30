@@ -62,7 +62,7 @@ def ban(bot: Bot, update: Update, args: List[str]) -> str:
     try:
         chat.kick_member(user_id)
         bot.send_sticker(chat.id, BAN_STICKER)  
-        message.reply_text(f"Admin {mention_html(user.id, user.first_name)} has has successfully banned {mention_html(member.user.id, member.user.first_name)} from " + f"{chat_name}",parse_mode=ParseMode.HTML)
+        message.reply_text(f"Admin {mention_html(user.id, user.first_name)} has banned {mention_html(member.user.id, member.user.first_name)},parse_mode=ParseMode.HTML)
         return log
 
     except BadRequest as excp:
@@ -198,7 +198,7 @@ def kick(bot: Bot, update: Update, args: List[str]) -> str:
     res = chat.unban_member(user_id)  # unban on current user = kick
     if res:
         bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
-        message.reply_text(f"Admin {mention_html(user.id, user.first_name)} has has successfully kicked {mention_html(member.user.id, member.user.first_name)} from " + f"{chat_name}",parse_mode=ParseMode.HTML)
+        message.reply_text(f"Admin {mention_html(user.id, user.first_name)} has kicked {mention_html(member.user.id, member.user.first_name)}",parse_mode=ParseMode.HTML)
 
         log = "<b>{}:</b>" \
               "\n#KICKED" \
