@@ -7,6 +7,7 @@ tswift
 coffeehouse
 spamwatch
 python-telegram-bot==11.1.0
+telethon
 PyYAML==5.1.2
 numpy
 urbandict
