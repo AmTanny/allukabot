@@ -1,0 +1,51 @@
+# CONFIG SETUP
+alluka_explain_config: "hunter_____X_____hunter"   #Change me from "alluka_zoldyck"
+
+bot_token: "token"  
+owner_id: 802002142
+owner_username: "meanii"
+database_url: "database_url"
+message_dump: "chat_id"
+gban_dump: "chat_id"
+load: []
+no_load: []
+cert_path: None
+port: 5000
+workers: 4
+webhook: False
+url: None
+allow_excl: False
+del_cmds: False
+strict_gban: False
+strict_gmute: False
+spammers_lists: [100]
+ban_sticker: 'CAACAgUAAxkBAAIHsl5nbqXdDTmpG2HFDNhnwvE5kFbWAAI9AQAC3pTNLzeTCUmnhTneGAQ'
+
+
+# API SETUP
+cash_api: None  
+time_api: None  
+wall_api: None
+lydia_api: None
+sw_api: None
+
+# Zoldyck family config
+alluka: [936828744]
+hisoka: [680240877]
+ging: [239508098]
+shizuku: [516449930]
+silva: [331863490]
+gon: [123456789] 
+illumi: [854853029]
+leorio: [575737330]
+biscuit: [586760757]
+chrollo: [806845434]
+killua: [165822682] 
+meruem: [696086626] 
+kite: [604968079] 
+
+# Permission
+dev_users: [802002142]
+sudo_users: [802002142, 680240877, 604968079]
+support_users: []
+whitelist_users: []
