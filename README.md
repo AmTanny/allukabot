@@ -10,7 +10,7 @@
 
 Modular HunterxHunter themed Telegram Bot for managing your group with additional features.
 
-[![alluka](https://telegra.ph/file/4d3a649980e88c3eeb362.jpg)](https://telegram.dog/zoldycktmbot)
+[![alluka](https://telegra.ph/file/4d3a649980e88c3eeb362.jpg)](https://telegram.dog/zoldycktmbot) [![GitHub stars](https://img.shields.io/github/stars/anilchauhanxda/allukabot.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/anilchauhanxda/allukabot/stargazers/)
 
 ### Configuration
 
