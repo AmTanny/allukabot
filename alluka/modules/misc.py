@@ -1,63 +1,52 @@
+import html
 import re
 import json
 import urllib.request
 import urllib.parse
+import requests as r
+from random import randint
+from time import sleep
+import random
 import wikipedia
 import requests
-import speedtest
 from tswift import Song
 from alluka.modules.disable import DisableAbleCommandHandler
 from time import time, sleep
 from coffeehouse.lydia import LydiaAI
 from coffeehouse.api import API
-from coffeehouse.exception import CoffeeHouseError as CFError
-from telegram import Message, Chat, User, Update, Bot ,MessageEntity, ParseMode, InlineKeyboardMarkup
-from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
-from alluka import dispatcher, LYDIA_API, OWNER_ID
-import alluka.modules.sql.lydia_sql as sql
-from alluka.modules.helper_funcs.filters import CustomFilters
-from typing import List
-from telegram import Update, Bot, ParseMode
-from alluka.modules.helper_funcs.chat_status import dev_plus
-from alluka import dispatcher, WHITELIST_USERS, SUPPORT_USERS, SUDO_USERS, DEV_USERS, OWNER_ID
-from alluka.modules.helper_funcs.chat_status import whitelist_plus, dev_plus
-from alluka import dispatcher, LOGGER
-from alluka.modules.helper_funcs.misc import sendMessage
-from subprocess import Popen, PIPE
-from requests import get
-from wikipedia.exceptions import DisambiguationError, PageError
-import requests as r
-from random import randint
-from time import sleep
-from alluka import dispatcher,WALL_API
-import random
-import alluka.modules.helper_funcs.memes_strings as memes_strings
-import html
-from alluka.modules.helper_funcs.chat_status import is_user_admin
-from alluka.modules.helper_funcs.extraction import extract_user
-from alluka import dispatcher, CASH_API_KEY
 import pynewtonmath as newton
 import math
 import re, html, time
 from bs4 import BeautifulSoup
-from telegram import Message, Update, Bot, User, Chat, ParseMode, InlineKeyboardMarkup
-from telegram.error import BadRequest
-from telegram.utils.helpers import escape_markdown, mention_html
 import os
 from urllib.request import urlopen
 from urllib.error import URLError, HTTPError
-from telegram import ParseMode, InputMediaPhoto, Update, Bot, TelegramError
 import datetime
-from alluka import dispatcher, TIME_API_KEY, LOGGER
 from jikanpy import Jikan
 from jikanpy.exceptions import APIException
-from telegram import Message, Chat, User, ParseMode, Update, Bot, InlineKeyboardMarkup, InlineKeyboardButton
 import yaml
 from datetime import datetime
 from typing import Optional, List
 from hurry.filesize import size as sizee
-from telegram import Message, Chat, Update, Bot, MessageEntity
+from coffeehouse.exception import CoffeeHouseError as CFError
+from telegram import Chat, User, Update, Bot ,MessageEntity, ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
+from telegram.ext import CommandHandler, MessageHandler, Filters, run_async
+from alluka import dispatcher, LOGGER, LYDIA_API, WHITELIST_USERS, SUPPORT_USERS, SUDO_USERS, DEV_USERS, OWNER_ID, WALL_API, CASH_API_KEY, TIME_API_KEY
+import alluka.modules.sql.lydia_sql as sql
+from alluka.modules.helper_funcs.filters import CustomFilters
+from typing import List
+from alluka.modules.helper_funcs.chat_status import dev_plus
+from alluka.modules.helper_funcs.misc import sendMessage
+from subprocess import Popen, PIPE
+from requests import get
+from wikipedia.exceptions import DisambiguationError, PageError
+import alluka.modules.helper_funcs.memes_strings as memes_strings
+from alluka.modules.helper_funcs.chat_status import is_user_admin
+from alluka.modules.helper_funcs.extraction import extract_user
+from telegram.error import BadRequest
 from telegram.utils.helpers import escape_markdown, mention_html
+from telegram import ParseMode, InputMediaPhoto, Update, Bot, TelegramError
+from telegram.utils.helpers import escape_markdown
 
 
 MARKDOWN_HELP = f"""
@@ -102,7 +91,6 @@ opener = urllib.request.build_opener()
 useragent = 'Mozilla/5.0 (Linux; Android 6.0.1; SM-G920V Build/MMB29K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.98 Mobile Safari/537.36'
 opener.addheaders = [('User-agent', useragent)]
 
-
 # lyrics module 
 @run_async
 def lyrics(bot: Bot, update: Update, args):
@@ -146,7 +134,6 @@ def add_chat(bot: Bot, update: Update):
     else:
         msg.reply_text("lydia is already enabled for this chat!")
         
-        
 @run_async
 def remove_chat(bot: Bot, update: Update):
     msg = update.effective_message
@@ -157,7 +144,6 @@ def remove_chat(bot: Bot, update: Update):
     else:
         sql.rem_chat(chat_id)
         msg.reply_text("lydia disabled successfully!")
-        
         
 def check_message(bot: Bot, message):
     reply_msg = message.reply_to_message
@@ -223,7 +209,6 @@ def paste(bot: Bot, update: Update, args: List[str]):
     reply_text = f'Nekofied to *Nekobin* : {url}'
 
     message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN, disable_web_page_preview=True)
-
 
 #shell 
 def shell(command):
@@ -324,7 +309,7 @@ def wall(bot: Bot, update: Update, args):
         msg.reply_text("Please enter a query!")
         return
     else:
-        caption = query
+       
         term = query.replace(" ", "%20")
         json_rep = r.get(f"https://wall.alphacoders.com/api2.0/get.php?auth={WALL_API}&method=search&term={term}").json()
         if not json_rep.get("success"):
