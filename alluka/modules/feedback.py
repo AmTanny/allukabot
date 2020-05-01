@@ -1,12 +1,9 @@
 import html
-from telegram import Update, Bot, ParseMode
+from telegram import Update, Bot, ParseMode,InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import run_async
 from alluka.modules.disable import DisableAbleCommandHandler
 from alluka import dispatcher
 from requests import get
-from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton
-
-
 
 @run_async
 def feedback(bot: Bot, update: Update):
@@ -26,14 +23,5 @@ def feedback(bot: Bot, update: Update):
   message.reply_text(reply_text, reply_markup=InlineKeyboardMarkup(
                                                 [[InlineKeyboardButton(text="You can see your feedback here",url="https://telegram.dog/allukabotfeeds")]]))
                                                
-  
-
-  
-
-
-
-
-
 feed_handle = DisableAbleCommandHandler("feedback", feedback)
-
 dispatcher.add_handler(feed_handle)
