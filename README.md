@@ -6,7 +6,7 @@
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)  
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
-[![GitHub forks](https://img.shields.io/github/forks/anilchauhanxda/allukabot.svg?style=social&label=Fork&maxAge=2592000)](https://GitHub.com/Naereen/StrapDown.js/network/)
+[![GitHub forks](https://img.shields.io/github/forks/anilchauhanxda/allukabot.svg?style=social&label=Fork&maxAge=2592000)](https://GitHub.com/anilchauhanxda/allukabot/network/)
 
 Modular HunterxHunter themed Telegram Bot for managing your group with additional features.
 
