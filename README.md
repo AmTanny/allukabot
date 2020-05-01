@@ -6,11 +6,11 @@
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)  
 [![GPLv3 license](https://img.shields.io/badge/License-GPLv3-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 
-[![GitHub forks](https://img.shields.io/github/forks/anilchauhanxda/allukabot.svg?style=social&label=Fork&maxAge=2592000)](https://GitHub.com/anilchauhanxda/allukabot/network/)
+[![GitHub forks](https://img.shields.io/github/forks/anilchauhanxda/allukabot.svg?style=social&label=Fork&maxAge=2592000)](https://GitHub.com/anilchauhanxda/allukabot/network/) [![GitHub stars](https://img.shields.io/github/stars/anilchauhanxda/allukabot.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/anilchauhanxda/allukabot/stargazers/)
 
 Modular HunterxHunter themed Telegram Bot for managing your group with additional features.
 
-[![alluka](https://telegra.ph/file/4d3a649980e88c3eeb362.jpg)](https://telegram.dog/zoldycktmbot) [![GitHub stars](https://img.shields.io/github/stars/anilchauhanxda/allukabot.svg?style=social&label=Star&maxAge=2592000)](https://GitHub.com/anilchauhanxda/allukabot/stargazers/)
+[![alluka](https://telegra.ph/file/4d3a649980e88c3eeb362.jpg)](https://telegram.dog/zoldycktmbot) 
 
 ### Configuration
 
