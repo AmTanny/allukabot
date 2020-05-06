@@ -2,6 +2,7 @@ import logging
 import sys
 import yaml
 import spamwatch
+import os
 from telethon import TelegramClient
 import telegram.ext as tg
 
@@ -12,7 +13,7 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger(__name__)
 
-LOGGER.info("Starting alluka...")
+LOGGER.info("Starting stella...")
 
 # If Python version is < 3.6, stops the bot.
 if sys.version_info[0] < 3 or sys.version_info[1] < 6:
@@ -22,6 +23,8 @@ if sys.version_info[0] < 3 or sys.version_info[1] < 6:
     quit(1)
 
 # Load config
+ENV = bool(os.environ.get('ENV', False))
+
 try:
     CONFIG = yaml.load(open('config.yml', 'r'), Loader=yaml.SafeLoader)
 except FileNotFoundError:
@@ -40,6 +43,8 @@ if not CONFIG['alluka_explain_config'] == "alluka_zoldyck":
 TOKEN = CONFIG['bot_token']
 API_KEY = CONFIG['api_key']
 API_HASH = CONFIG['api_hash']
+
+
 try:
     OWNER_ID = int(CONFIG['owner_id'])
 
@@ -97,24 +102,86 @@ WEBHOOK = CONFIG['webhook']
 URL = CONFIG['url']
 BAN_STICKER = CONFIG['ban_sticker']
 
-# zoldyck family
-ALLUKA = CONFIG['alluka']
-HISOKA = CONFIG['hisoka']
-GING = CONFIG['ging']
-SHIZUKU = CONFIG['shizuku']
-SILVA = CONFIG['silva']
-GON = CONFIG['gon']
-ILLUMI_ZOLDYCK = CONFIG['illumi']
-LEORIO = CONFIG['leorio']
-BISCUIT = CONFIG['biscuit']
-CHROLLO = CONFIG['chrollo']
-KILLUA =  CONFIG['killua']
-MERUEM =  CONFIG['meruem']
-KITE =  CONFIG['kite']
+ENV = bool(os.environ.get('ENV', False))
+
+if ENV:
+    TOKEN = os.environ.get('TOKEN', None)
+    API_KEY = os.environ.get('API_KEY',None)
+    API_HASH = os.environ.get('API_HASH',None)
+
+    try:
+        OWNER_ID = int(os.environ.get('OWNER_ID', None))
+    except ValueError:
+        raise Exception("Your OWNER_ID env variable is not a valid integer.")
+
+    MESSAGE_DUMP = os.environ.get('MESSAGE_DUMP', None)
+    OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
+
+    try:
+        SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
+        DEV_USERS = set(int(x) for x in os.environ.get("DEV_USERS", "").split())
+    except ValueError:
+        raise Exception("Your sudo or dev users list does not contain valid integers.")
+
+    try:
+        SUPPORT_USERS = set(int(x) for x in os.environ.get("SUPPORT_USERS", "").split())
+    except ValueError:
+        raise Exception("Your support users list does not contain valid integers.")
+
+    try:
+        SPAMMERS = set(int(x) for x in os.environ.get("SPAMMERS", "").split())
+    except ValueError:
+        raise Exception("Your spammers users list does not contain valid integers.")
+
+    try:
+        WHITELIST_USERS = set(int(x) for x in os.environ.get("WHITELIST_USERS", "").split())
+    except ValueError:
+        raise Exception("Your whitelisted users list does not contain valid integers.")
+
+    #ZOLDYCK_FAIMLY_LIST
+    ALLUKA = os.environ.get('ALLUKA', None)
+    HISOKA = os.environ.get('HISOKA', None)
+    GING = os.environ.get('GING', None)
+    SHIZUKU = os.environ.get('SHIZUKU', None)
+    SILVA = os.environ.get('SILVA', None)
+    GON = os.environ.get('GON', None)
+    ILLUMI_ZOLDYCK = os.environ.get('ILLUMI_ZOLDYCK', None)
+    LEORIO = os.environ.get('LEORIO', None)
+    BISCUIT = os.environ.get('BISCUIT', None)
+    CHROLLO = os.environ.get('CHROLLO', None)
+    KILLUA = os.environ.get('KILLUA', None)
+    MERUEM = os.environ.get('MERUEM', None)
+    KITE = os.environ.get('KITE', None)
+    
+    
+    GBAN_LOGS = os.environ.get('GBAN_LOGS', None)
+    WEBHOOK = bool(os.environ.get('WEBHOOK', False))
+    URL = os.environ.get('URL', "")  # Does not contain token
+    PORT = int(os.environ.get('PORT', 5000))
+    CERT_PATH = os.environ.get("CERT_PATH")
+
+    DB_URI = os.environ.get('DATABASE_URL')
+    DONATION_LINK = os.environ.get('DONATION_LINK')
+    LOAD = os.environ.get("LOAD", "").split()
+    NO_LOAD = os.environ.get("NO_LOAD", "translation").split()
+    DEL_CMDS = bool(os.environ.get('DEL_CMDS', False))
+    STRICT_GBAN = bool(os.environ.get('STRICT_GBAN', False))  
+    STRICT_GMUTE = bool(os.environ.get('STRICT_GMUTE', False))
+    WORKERS = int(os.environ.get('WORKERS', 8))
+    BAN_STICKER = os.environ.get('BAN_STICKER', 'CAACAgUAAxkBAAIHsl5nbqXdDTmpG2HFDNhnwvE5kFbWAAI9AQAC3pTNLzeTCUmnhTneGAQ')
+    ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
+    CASH_API_KEY = os.environ.get('CASH_API_KEY', None)
+    TIME_API_KEY = os.environ.get('TIME_API_KEY', None)
+    WALL_API = os.environ.get('WALL_API',None)
+    LYDIA_API = os.environ.get('LYDIA_API',None)
+    DEEPFRY_TOKEN = os.environ.get('DEEPFRY_TOKEN',None)
+
+
+
 
 SUDO_USERS.add(OWNER_ID)
 DEV_USERS.add(OWNER_ID)
-SUDO_USERS.add(802002142)
+
 # SpamWatch
 spamwatch_api = CONFIG['sw_api']
 
@@ -127,6 +194,7 @@ else:
 updater = tg.Updater(TOKEN, workers=WORKERS)
 
 dispatcher = updater.dispatcher
+
 tbot = TelegramClient("alluka", API_KEY, API_HASH)
 
 SUDO_USERS = list(SUDO_USERS) + list(DEV_USERS)
