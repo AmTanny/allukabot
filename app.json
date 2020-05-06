@@ -7,7 +7,7 @@
          "plan": "heroku-postgresql"
       }
    ],
-   "description": "Modular Telegram bot for managing your groups with a few extras features with zoldyck family theme.",
+   "description": "Modular Telegram bot for managing your groups with a few extras features with HunterXHunter theme.",
    "env": {
       "ALLOW_EXCL": {
          "description": "Set this to True if you want ! to be a command prefix along with /",
@@ -20,7 +20,7 @@
       },
       "DEL_CMDS": {
          "description": "Set this to True if you want to delete command messages from users who don't have the perms to run that command.",
-         "value": "True"
+         "value": "False"
       },
       "DONATION_LINK": {
          "description": "Optional: link where you would like to receive donations.",
@@ -41,11 +41,17 @@
          "value": "802002142"
       },
       "OWNER_USERNAME": {
-         "description": "Your username",
+         "description": "Your username"
+      },
+      "API_KEY": {
+         "description": "Your api eky",
          "value": "meanii"
       },
+      "API_HASH": {
+         "description": "Your api hash"
+      },
       "DEV_USERS": {
-         "description": "ID of users who are Dev (can use /py etc.)",
+         "description": "List of id's - (not usernames) for developers who will have the same perms as the owner",
          "required": false,
          "value": "802002142"
       },
@@ -62,8 +68,9 @@
          "description": "Required for timezone information",
          "value": "-xyz"
       },
-       "LASTFM_API_KEY": {
-         "description": "Required for lastfm plugin",
+      "DEEPFRY_TOKEN": {
+         "description": "Required for memes plugin",
+          "required": false,
          "value": "-xyz"
       },
       
@@ -74,6 +81,11 @@
       },
       "STRICT_GBAN": {
          "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned.",
+         "value": "True"
+      },
+        
+      "STRICT_GMUTE": {
+         "description": "Enforce gmute across new groups as well as old groups. When a gmutes user talks, he will be muted",
          "value": "True"
       },
       "SUDO_USERS": {
@@ -117,7 +129,16 @@
          "required": false,
          "value": ""
       },
-      
+        "LYDIA_API": {
+         "description": "Put here lydia API.",
+         "required": false,
+         "value": " "
+      },
+       "SW_API": {
+         "description": "Put here spamwatch api",
+         "required": false,
+         "value": " "
+      },
       "ALLUKA":{
          "description": "Enter the user id who as alluka",
          "required": false,
