@@ -8,6 +8,7 @@ import datetime
 from typing import Optional, List
 import re
 import requests
+from telegram.error import BadRequest
 from telegram import Message, Chat, Update, Bot, MessageEntity
 import alluka.modules.helper_funcs.cas_api as cas
 from telegram import ParseMode
