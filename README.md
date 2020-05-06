@@ -11,7 +11,7 @@
 
 Modular HunterxHunter themed Telegram Bot for managing your group with additional features.
 
-[![alluka](https://telegra.ph/file/4d3a649980e88c3eeb362.jpg)](https://telegram.dog/zoldycktmbot) 
+[![alluka](https://telegra.ph/file/4d3a649980e88c3eeb362.jpg)](https://heroku.com/deploy?template=https://github.com/anilchauhanxda/allukabot) 
 
 ### Configuration
 
