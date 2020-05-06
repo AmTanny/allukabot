@@ -173,7 +173,8 @@ if ENV:
     WALL_API = os.environ.get('WALL_API',None)
     LYDIA_API = os.environ.get('LYDIA_API',None)
     DEEPFRY_TOKEN = os.environ.get('DEEPFRY_TOKEN',None)
-    sw = os.environ.get('SW_API',None)
+    spamwatch_api = os.environ.get('SW_API',None)
+    sw = spamwatch.Client(spamwatch_api)
 
 
 
