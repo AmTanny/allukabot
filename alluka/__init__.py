@@ -13,7 +13,7 @@ logging.basicConfig(
 
 LOGGER = logging.getLogger(__name__)
 
-LOGGER.info("Starting stella...")
+LOGGER.info("Starting alluka...")
 
 # If Python version is < 3.6, stops the bot.
 if sys.version_info[0] < 3 or sys.version_info[1] < 6:
@@ -182,14 +182,7 @@ if ENV:
 SUDO_USERS.add(OWNER_ID)
 DEV_USERS.add(OWNER_ID)
 
-# SpamWatch
-spamwatch_api = CONFIG['sw_api']
 
-if spamwatch_api == "None":
-    sw = None
-    LOGGER.warning("SpamWatch API key is missing! Check your config.env.")
-else:
-    sw = spamwatch.Client(spamwatch_api)
 
 updater = tg.Updater(TOKEN, workers=WORKERS)
 
