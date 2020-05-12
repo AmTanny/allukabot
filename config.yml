@@ -1,5 +1,5 @@
 # CONFIG SETUP
-alluka_explain_config: "alluka_zoldyck"   #Change me from "alluka_zoldyck"
+alluka_explain_config: "Hunter___x___Hunter"   #Change me from "alluka_zoldyck"
 
 bot_token: "token"  
 owner_id: 802002142
@@ -7,8 +7,8 @@ api_key: 123456
 api_hash: ' '
 owner_username: "meanii"
 database_url: "database_url"
-message_dump: "chat_id"
-gban_dump: "chat_id"
+message_dump: None
+gban_dump: None
 load: []
 no_load: []
 cert_path: None
@@ -29,7 +29,7 @@ cash_api: None
 time_api: None  
 wall_api: None
 lydia_api: None
-sw_api: ''
+
 
 # Zoldyck family config
 alluka: [936828744]
