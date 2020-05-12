@@ -9,7 +9,7 @@ from telegram.ext import run_async, CommandHandler, MessageHandler, Filters
 from telegram.utils.helpers import mention_html
 from alluka.modules.helper_funcs.chat_status import user_admin, is_user_admin, support_plus
 import alluka.modules.sql.antispam_sql as sql
-from alluka import dispatcher, OWNER_ID, SUDO_USERS, DEV_USERS, SUPPORT_USERS, WHITELIST_USERS, STRICT_GBAN, GBAN_LOGS, sw
+from alluka import dispatcher, OWNER_ID, SUDO_USERS, DEV_USERS, SUPPORT_USERS, WHITELIST_USERS, STRICT_GBAN, GBAN_LOGS
 from alluka.modules.helper_funcs.chat_status import user_admin, is_user_admin
 from alluka.modules.helper_funcs.extraction import extract_user, extract_user_and_text
 from alluka.modules.helper_funcs.filters import CustomFilters
@@ -276,37 +276,16 @@ def gbanlist(bot: Bot, update: Update):
         update.effective_message.reply_document(document=output, filename="gbanlist.txt",
                                                 caption="Here is the list of currently gbanned users.")
 
+
 def check_and_ban(update, user_id, should_message=True):
-    chat = update.effective_chat
-    message = update.effective_message
-    if sw != None:
-        sw_ban = sw.get_ban(user_id)
-        if sw_ban:
-            spamwatch_reason = sw_ban.reason
-            chat.kick_member(user_id)
-            if should_message:
-                message.reply_text(
-                    (chat.id,
-                        "<b>This user is detected as a spambot by SpamWatch and has been removed!</b>\n\n<b>Reason</b>: {}").format(spamwatch_reason),
-                    parse_mode=ParseMode.HTML)
-                return
-            else:
-                return
-
-    if sql.is_user_gbanned(user_id):
-        chat.kick_member(user_id)
+    spmban = spamwtc.get_ban(int(user_id))
+    if spmban:
+        update.effective_chat.kick_member(user_id)
         if should_message:
-            userr = sql.get_gbanned_user(user_id)
-            usrreason = userr.reason
-            if not usrreason:
-                usrreason = (chat.id, "No reason given")
-
-            message.reply_text((
-                chat.id, "*This user is gbanned and has been removed.*\nReason: `{}`").format(usrreason),
-                               parse_mode=ParseMode.MARKDOWN)
+            update.effective_message.reply_markdown("**This user is detected as potential Spambot by SpamWatch and have been removed!**\n\nPlease visit @SpamWatchSupport to know more or Appeal!")
             return
-
-
+        else:
+            return
 
 @run_async
 def enforce_gban(bot: Bot, update: Update):
