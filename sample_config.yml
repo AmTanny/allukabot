@@ -3,7 +3,7 @@ alluka_explain_config: "Hunter___x___Hunter"   #Change me from "alluka_zoldyck"
 
 bot_token: "token"  
 owner_id: 802002142
-api_key: 123456
+api_key: ' '
 api_hash: ' '
 owner_username: "meanii"
 database_url: "database_url"
