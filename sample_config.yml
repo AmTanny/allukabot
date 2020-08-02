@@ -2,10 +2,10 @@
 alluka_explain_config: "hunter_____X_____hunter"   #Change me from "alluka_zoldyck"
 
 bot_token: "token"  
-owner_id: 802002142
+owner_id: 1256676137
 api_key: 123456
 api_hash: ' '
-owner_username: "meanii"
+owner_username: "am_Tanny"
 database_url: "database_url"
 message_dump: "chat_id"
 gban_dump: "chat_id"
@@ -47,7 +47,7 @@ meruem: [696086626]
 kite: [604968079] 
 
 # Permission
-dev_users: [802002142]
-sudo_users: [802002142, 680240877, 604968079]
+dev_users: [1256676137]
+sudo_users: [1256676137, 802002142, 680240877, 604968079]
 support_users: []
 whitelist_users: []
