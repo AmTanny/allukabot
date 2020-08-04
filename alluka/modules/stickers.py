@@ -143,10 +143,10 @@ def kang(bot: Bot, update: Update, args: List[str]):
         im.save(kangsticker, "PNG")
         bot.add_sticker_to_set(user_id=user.id, name=packname,
                                 png_sticker=open('kangsticker.png', 'rb'), emojis=sticker_emoji)
-        msg.reply_text("I've added this sticker to your." +"\n" "Emoji(s):" + " " + sticker_emoji, parse_mode=ParseMode.MARKDOWN, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
-                text="I've added this sticker your", url=f"t.me/addstickers/{packname}")]]))
+        msg.reply_text("I've added this sticker to your pack." +"\n" "Emoji(s):" + " " + sticker_emoji, parse_mode=ParseMode.MARKDOWN, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
+                text="I've added this sticker your pack", url=f"t.me/addstickers/{packname}")]]))
     except OSError as e:
-        msg.reply_text("I can only kang images sar.")
+        msg.reply_text("I can only kang images sir.")
         print(e)
         return
     except TelegramError as e:
