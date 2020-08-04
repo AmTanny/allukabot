@@ -144,7 +144,7 @@ def kang(bot: Bot, update: Update, args: List[str]):
         bot.add_sticker_to_set(user_id=user.id, name=packname,
                                 png_sticker=open('kangsticker.png', 'rb'), emojis=sticker_emoji)
         msg.reply_text("I've added this sticker to your pack." +"\n" "Emoji(s):" + " " + sticker_emoji, parse_mode=ParseMode.MARKDOWN, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton(
-                text="I've added this sticker your pack", url=f"t.me/addstickers/{packname}")]]))
+                text="I've added this sticker to your pack", url=f"t.me/addstickers/{packname}")]]))
     except OSError as e:
         msg.reply_text("I can only kang images sir.")
         print(e)
