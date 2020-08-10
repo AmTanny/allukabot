@@ -27,5 +27,5 @@ DARE_HANDLER = DisableAbleCommandHandler("dare", dare)
 dispatcher.add_handler(TRUTH_HANDLER)
 dispatcher.add_handler(DARE_HANDLER)
 
-__mod_name__ = "truth"
+__mod_name__ = "Truth or Dare"
 
