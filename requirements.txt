@@ -39,4 +39,5 @@ CurrencyConverter
 #translator
 googletrans
 jikanpy
+fontTools
 speedtest-cli
