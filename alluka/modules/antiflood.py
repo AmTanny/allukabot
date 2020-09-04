@@ -116,7 +116,7 @@ def flood(bot: Bot, update: Update):
         soft_flood = sql.get_flood_strength(chat.id)
         if soft_flood:
             msg.reply_text("I'm currently kicking users out if they send more than {} " 
-                           "consecutive messages. They will able to join again!".format(limit, parse_mode=ParseMode.MARKDOWN))
+                           "consecutive messages. They will be able to join again!".format(limit, parse_mode=ParseMode.MARKDOWN))
         else:
             msg.reply_text("I'm currently banning users if they send more than {} " 
                            "consecutive messages.".format(limit, parse_mode=ParseMode.MARKDOWN))
